@@ -20,11 +20,12 @@ class CryptoWatch {
    * @private
    */
 
-  request(endpoint) {
+  request(endpoint, params = {}) {
     return new Promise((resolve, reject) => {
       const url = `${this.url}/${endpoint}`
       http
         .get(url)
+        .query(params)
         .end((err, res) => {
           if (err) {
             reject({
@@ -186,7 +187,7 @@ class CryptoWatch {
    * @param {String} pair
    */
 
-  trades(market, pair) {
+  trades(market, pair, params) {
     return this.request(`markets/${market}/${pair}/trades`)
   }
 
@@ -209,8 +210,8 @@ class CryptoWatch {
    * @param {String} pair
    */
 
-  OHLC(market, pair) {
-    return this.request(`markets/${market}/${pair}/ohlc`)
+  OHLC(market, pair, params) {
+    return this.request(`markets/${market}/${pair}/ohlc`, params)
   }
 }
 
